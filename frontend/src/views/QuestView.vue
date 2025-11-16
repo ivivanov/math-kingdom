@@ -4,8 +4,8 @@ import { useRouter, useRoute } from 'vue-router'
 import { useProgressStore } from '@/stores/progress'
 import { useUserStatsStore } from '@/stores/userStats'
 import { useRewardsStore } from '@/stores/rewards'
+import { useNotificationsStore } from '@/stores/notifications'
 import UserSwitcher from '@/components/auth/UserSwitcher.vue'
-import CountCat from '@/components/shared/CountCat.vue'
 import ProgressBar from '@/components/shared/ProgressBar.vue'
 import HintPanel from '@/components/shared/HintPanel.vue'
 import RewardAnimation from '@/components/shared/RewardAnimation.vue'
@@ -20,6 +20,7 @@ const route = useRoute()
 const progressStore = useProgressStore()
 const userStatsStore = useUserStatsStore()
 const rewardsStore = useRewardsStore()
+const notificationsStore = useNotificationsStore()
 
 const questId = route.params.questId as string
 const quest = ref<Quest | null>(null)
@@ -32,8 +33,6 @@ const rewardData = ref<{ gems: number; stars: number; badges: string[] }>({
   stars: 0,
   badges: []
 })
-const catMessage = ref('')
-const catMood = ref<'happy' | 'encouraging' | 'celebrating' | 'thinking'>('happy')
 const activityTimeoutId = ref<number | null>(null)
 
 // Configurable delay for activity transition
@@ -44,7 +43,6 @@ onMounted(() => {
   if (foundQuest) {
     quest.value = foundQuest
     progressStore.startQuest(questId)
-    catMessage.value = `Welcome! Let's begin the ${foundQuest.name}. You've got this!`
     totalAnswers.value = foundQuest.content.activities.length
   } else {
     router.push('/realm/number-village')
@@ -59,11 +57,9 @@ const currentActivity = computed(() => {
 const handleActivityComplete = (isCorrect: boolean, _answer: number | string) => {
   if (isCorrect) {
     correctAnswers.value++
-    catMessage.value = '🎉 Excellent work! That\'s correct!'
-    catMood.value = 'celebrating'
+    notificationsStore.showSuccess('🎉 Excellent work! That\'s correct!')
   } else {
-    catMessage.value = '💪 Not quite right, but don\'t worry! Let\'s try to understand it better.'
-    catMood.value = 'encouraging'
+    notificationsStore.showError('💪 Not quite right, but don\'t worry! Let\'s try to understand it better.')
   }
 
   // Clear any existing timeout
@@ -75,8 +71,7 @@ const handleActivityComplete = (isCorrect: boolean, _answer: number | string) =>
   activityTimeoutId.value = window.setTimeout(() => {
     if (currentActivityIndex.value < (quest.value?.content.activities.length || 0) - 1) {
       currentActivityIndex.value++
-      catMessage.value = 'Great! Let\'s move on to the next one!'
-      catMood.value = 'happy'
+      notificationsStore.showInfo('Great! Let\'s move on to the next one!')
     } else {
       completeQuest()
     }
@@ -96,7 +91,7 @@ const completeQuest = () => {
   
   // Award gems and stars
   userStatsStore.addGems(gemsEarned)
-  const levelUpResult = userStatsStore.addStars(starsEarned)
+  userStatsStore.addStars(starsEarned)
   
   // Check for badges
   const earnedBadges: string[] = []
@@ -131,13 +126,6 @@ const completeQuest = () => {
     badges: earnedBadges
   }
   
-  let message = `Amazing! You completed the ${quest.value.name}!`
-  if (levelUpResult && levelUpResult.leveledUp) {
-    message += ` You leveled up to Level ${levelUpResult.newLevel}!`
-  }
-  
-  catMessage.value = message
-  catMood.value = 'celebrating'
   showReward.value = true
 }
 
@@ -178,8 +166,6 @@ onUnmounted(() => {
           :show-percentage="false"
         />
       </div>
-
-      <CountCat :message="catMessage" :mood="catMood" />
 
       <div class="activity-container">
         <div v-if="currentActivity" class="activity-card">

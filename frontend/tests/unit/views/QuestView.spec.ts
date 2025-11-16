@@ -5,6 +5,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useProgressStore } from '@/stores/progress'
 import { useUserStatsStore } from '@/stores/userStats'
 import { useRewardsStore } from '@/stores/rewards'
+import { useNotificationsStore } from '@/stores/notifications'
 import { storageService } from '@/services/storage'
 import QuestView from '@/views/QuestView.vue'
 import type { Quest } from '@/types'
@@ -102,7 +103,6 @@ describe('QuestView', () => {
       global: {
         stubs: {
           UserSwitcher: true,
-          CountCat: true,
           ProgressBar: true,
           HintPanel: true,
           RewardAnimation: true,
@@ -149,26 +149,30 @@ describe('QuestView', () => {
     const wrapper = await mountComponent()
     await wrapper.vm.$nextTick()
 
+    const notificationsStore = useNotificationsStore()
+    const showSuccessSpy = vi.spyOn(notificationsStore, 'showSuccess')
+
     expect(wrapper.vm.correctAnswers).toBe(0)
 
     await wrapper.vm.handleActivityComplete(true, 3)
 
     expect(wrapper.vm.correctAnswers).toBe(1)
-    expect(wrapper.vm.catMessage).toContain('correct')
-    expect(wrapper.vm.catMood).toBe('celebrating')
+    expect(showSuccessSpy).toHaveBeenCalledWith('🎉 Excellent work! That\'s correct!')
   })
 
   it('handles incorrect activity completion', async () => {
     const wrapper = await mountComponent()
     await wrapper.vm.$nextTick()
 
+    const notificationsStore = useNotificationsStore()
+    const showErrorSpy = vi.spyOn(notificationsStore, 'showError')
+
     expect(wrapper.vm.correctAnswers).toBe(0)
 
     await wrapper.vm.handleActivityComplete(false, 5)
 
     expect(wrapper.vm.correctAnswers).toBe(0)
-    expect(wrapper.vm.catMessage).toContain('Not quite right')
-    expect(wrapper.vm.catMood).toBe('encouraging')
+    expect(showErrorSpy).toHaveBeenCalledWith('💪 Not quite right, but don\'t worry! Let\'s try to understand it better.')
   })
 
   it('completes quest and calculates rewards', async () => {
