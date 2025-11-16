@@ -25,7 +25,7 @@ if ("serviceWorker" in navigator) {
         // Check for updates periodically
         setInterval(() => {
           registration.update();
-        }, 60000); // Check every minute
+        }, 3600000); // Check every hour
 
         // Handle service worker updates
         registration.addEventListener("updatefound", () => {

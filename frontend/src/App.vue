@@ -23,7 +23,6 @@ body {
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
   overflow-x: hidden;
-  position: fixed;
   width: 100%;
   /* Handle notched devices */
   padding-top: env(safe-area-inset-top);
