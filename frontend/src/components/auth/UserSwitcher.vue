@@ -92,6 +92,8 @@ const addUser = () => {
   cursor: pointer;
   transition: all 0.3s;
   font-size: 0.95rem;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .user-button:hover {
@@ -173,6 +175,8 @@ const addUser = () => {
   text-align: left;
   font-size: 0.95rem;
   color: #333;
+  min-height: 44px;
+  touch-action: manipulation;
 }
 
 .dropdown-item:hover {

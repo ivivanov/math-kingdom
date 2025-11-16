@@ -209,6 +209,8 @@ onUnmounted(() => {
   cursor: pointer;
   transition: all 0.3s;
   margin-top: 20px;
+  min-height: 52px;
+  touch-action: manipulation;
 }
 
 .close-btn:hover {

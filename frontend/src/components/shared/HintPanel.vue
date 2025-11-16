@@ -116,6 +116,9 @@ const toggleVocabulary = () => {
   cursor: pointer;
   transition: all 0.3s;
   font-size: 0.9rem;
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
 }
 
 .toggle-btn:hover {

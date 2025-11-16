@@ -16,7 +16,7 @@ An interactive educational math game for elementary students, built with Vue 3, 
 ### Educational Content
 
 **Number Village Quests:**
-1. **Cookie Counting Adventure** (Practice) - Learn to count 1-10 with drag-and-drop objects
+1. **Cookie Counting Adventure** (Practice) - Learn to count 1-10 with tap-to-select interaction
 2. **Zero Hero Quest** (Discovery) - Understand the concept of zero and empty sets
 
 **Vocabulary Terms:**
@@ -105,7 +105,7 @@ frontend/
 1. From the Dashboard, click on "Number Village"
 2. Select a quest to begin
 3. Follow Count Cat's instructions
-4. Complete activities by dragging objects or selecting answers
+4. Complete activities by tapping objects to select, then tapping the target, or selecting multiple-choice answers
 5. Earn gems and stars upon completion
 
 ### Customizing Your Avatar
@@ -176,7 +176,7 @@ npm run build
 - Chrome/Edge: ✅ Fully supported
 - Firefox: ✅ Fully supported
 - Safari: ✅ Fully supported
-- Mobile browsers: ✅ Touch-enabled drag-and-drop
+- Mobile browsers: ✅ Mobile-first tap-to-select interaction (optimized for touch)
 
 ## 🔒 Security Note
 
@@ -189,6 +189,9 @@ npm run build
 
 ## ✨ Recent Improvements
 
+- ✅ Refactored to mobile-first tap-to-select interaction pattern
+- ✅ All touch targets meet 44x44px accessibility standards
+- ✅ Replaced drag-and-drop with intuitive two-tap workflow
 - ✅ Implemented localStorage caching layer for performance
 - ✅ Added proper cleanup for timers and watchers
 - ✅ Enhanced error handling across async operations

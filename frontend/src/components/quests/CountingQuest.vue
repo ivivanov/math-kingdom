@@ -1,92 +1,127 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import DraggableObject from '@/components/shared/DraggableObject.vue'
-import DropZone from '@/components/shared/DropZone.vue'
-import type { Activity } from '@/types'
+import { ref, computed, watch } from "vue";
+import TappableObject from "@/components/shared/TappableObject.vue";
+import TargetZone from "@/components/shared/TargetZone.vue";
+import type { Activity } from "@/types";
 
 const props = defineProps<{
-  activity: Activity
-  activityIndex: number
-}>()
+  activity: Activity;
+  activityIndex: number;
+}>();
 
 const emit = defineEmits<{
-  complete: [correct: boolean, answer: number]
-}>()
+  complete: [correct: boolean, answer: number];
+}>();
 
-const droppedItems = ref<string[]>([])
-const availableItems = ref<string[]>([])
-const currentAnswer = ref<number | null>(null)
+const placedItems = ref<string[]>([]);
+const availableItems = ref<string[]>([]);
+const selectedItemId = ref<string | null>(null);
+const currentAnswer = ref<number | null>(null);
 
 // Initialize available items
-watch(() => props.activity, (newActivity) => {
-  if (newActivity.objects) {
-    availableItems.value = newActivity.objects.map((_, index) => `${props.activityIndex}-item-${index}`)
-    droppedItems.value = []
-    currentAnswer.value = null
-  }
-}, { immediate: true })
+watch(
+  () => props.activity,
+  (newActivity) => {
+    if (newActivity.objects) {
+      availableItems.value = newActivity.objects.map(
+        (_, index) => `${props.activityIndex}-item-${index}`
+      );
+      placedItems.value = [];
+      selectedItemId.value = null;
+      currentAnswer.value = null;
+    }
+  },
+  { immediate: true }
+);
 
-const handleDrop = (itemId: string) => {
-  if (!droppedItems.value.includes(itemId)) {
-    droppedItems.value.push(itemId)
-    currentAnswer.value = droppedItems.value.length
+// Handle object selection - tap-to-select pattern
+const handleObjectSelect = (itemId: string) => {
+  // If item is already placed, don't allow selection
+  if (placedItems.value.includes(itemId)) return;
+
+  // Toggle selection
+  if (selectedItemId.value === itemId) {
+    selectedItemId.value = null;
+  } else {
+    selectedItemId.value = itemId;
   }
-}
+};
+
+// Handle target zone tap - place selected item
+const handleTargetTap = () => {
+  if (!selectedItemId.value) return;
+  if (placedItems.value.includes(selectedItemId.value)) return;
+
+  placedItems.value.push(selectedItemId.value);
+  currentAnswer.value = placedItems.value.length;
+  selectedItemId.value = null;
+};
 
 const remainingItems = computed(() => {
-  return availableItems.value.filter(id => !droppedItems.value.includes(id))
-})
+  return availableItems.value.filter((id) => !placedItems.value.includes(id));
+});
 
 const objectType = computed(() => {
-  return (index: number) => props.activity.objects?.[index] || 'cookie'
-})
+  return (index: number) => props.activity.objects?.[index] || "cookie";
+});
 
 const isComplete = computed(() => {
-  return remainingItems.value.length === 0
-})
+  return remainingItems.value.length === 0;
+});
 
 const checkAnswer = () => {
-  const correctAnswer = Number(props.activity.correctAnswer)
-  const userAnswer = droppedItems.value.length
-  const isCorrect = userAnswer === correctAnswer
-  
-  emit('complete', isCorrect, userAnswer)
-}
+  const correctAnswer = Number(props.activity.correctAnswer);
+  const userAnswer = placedItems.value.length;
+  const isCorrect = userAnswer === correctAnswer;
+
+  emit("complete", isCorrect, userAnswer);
+};
 
 const resetActivity = () => {
-  droppedItems.value = []
-  currentAnswer.value = null
-}
+  placedItems.value = [];
+  selectedItemId.value = null;
+  currentAnswer.value = null;
+};
 </script>
 
 <template>
   <div class="counting-quest">
+    <!-- Mobile-friendly instructions -->
     <div class="instructions">
       <h3>{{ activity.instructions }}</h3>
+      <p class="mobile-hint">
+        👆 Tap an object to select it, then tap the basket!
+      </p>
     </div>
 
     <div class="quest-area">
       <div class="objects-area">
-        <h4>Drag these objects:</h4>
+        <h4>Tap these objects:</h4>
         <div class="objects-grid">
-          <DraggableObject
+          <TappableObject
             v-for="(itemId, index) in remainingItems"
             :key="itemId"
             :id="itemId"
-            :type="objectType(index)"
+            :type="objectType(availableItems.indexOf(itemId))"
+            :is-selected="selectedItemId === itemId"
+            @select="handleObjectSelect"
           />
         </div>
-        <p v-if="remainingItems.length === 0" class="all-dragged">
-          ✨ All objects moved! Now check your answer.
+        <p v-if="remainingItems.length === 0" class="all-placed">
+          ✨ All objects placed! Now check your answer.
+        </p>
+        <p v-else-if="selectedItemId" class="selection-feedback">
+          ✓ Object selected! Now tap the basket below.
         </p>
       </div>
 
-      <div class="drop-area">
-        <DropZone
+      <div class="target-area">
+        <TargetZone
           id="basket"
-          label="Drop here to count"
-          :count="droppedItems.length"
-          @drop="handleDrop"
+          label="Tap to place"
+          :count="placedItems.length"
+          :has-selected-item="selectedItemId !== null"
+          @tap="handleTargetTap"
         />
       </div>
     </div>
@@ -96,17 +131,17 @@ const resetActivity = () => {
         <span class="count-label">Your count:</span>
         <span class="count-value">{{ currentAnswer }}</span>
       </div>
-      
+
       <div class="action-buttons">
-        <button 
-          @click="resetActivity" 
+        <button
+          @click="resetActivity"
           class="btn-secondary"
-          :disabled="droppedItems.length === 0"
+          :disabled="placedItems.length === 0"
         >
           🔄 Reset
         </button>
-        <button 
-          @click="checkAnswer" 
+        <button
+          @click="checkAnswer"
           class="btn-primary"
           :disabled="!isComplete"
         >
@@ -130,6 +165,18 @@ const resetActivity = () => {
 .instructions h3 {
   font-size: 1.5rem;
   color: #333;
+  margin-bottom: 8px;
+}
+
+.mobile-hint {
+  font-size: 1rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-top: 8px;
+  padding: 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
 }
 
 .quest-area {
@@ -140,7 +187,7 @@ const resetActivity = () => {
 }
 
 .objects-area,
-.drop-area {
+.target-area {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,18 +200,53 @@ const resetActivity = () => {
 }
 
 .objects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-  gap: 15px;
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
   margin-bottom: 20px;
+  max-width: 100%;
 }
 
-.all-dragged {
+.all-placed {
   color: #28a745;
   font-weight: 600;
   font-size: 1.1rem;
   text-align: center;
+  animation: success-pulse 0.6s ease-out;
+}
+
+@keyframes success-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.selection-feedback {
+  color: #667eea;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  padding: 12px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 12px;
+  margin-top: 12px;
+  animation: feedback-slide 0.3s ease-out;
+}
+
+@keyframes feedback-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .answer-section {
@@ -266,4 +348,3 @@ const resetActivity = () => {
   }
 }
 </style>
-

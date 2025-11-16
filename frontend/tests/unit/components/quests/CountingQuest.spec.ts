@@ -19,8 +19,8 @@ describe('CountingQuest', () => {
       },
       global: {
         stubs: {
-          DraggableObject: true,
-          DropZone: true
+          TappableObject: true,
+          TargetZone: true
         }
       }
     })
@@ -33,20 +33,27 @@ describe('CountingQuest', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.vm.availableItems).toHaveLength(5)
-    expect(wrapper.vm.droppedItems).toHaveLength(0)
+    expect(wrapper.vm.placedItems).toHaveLength(0)
+    expect(wrapper.vm.selectedItemId).toBeNull()
     expect(wrapper.vm.currentAnswer).toBeNull()
   })
 
-  it('handles item drop into drop zone', async () => {
+  it('handles tap-to-select and tap-to-place interaction', async () => {
     const activity = createActivity('3', 3)
     const wrapper = mountComponent(activity)
 
     await wrapper.vm.$nextTick()
 
     const itemId = wrapper.vm.availableItems[0]
-    wrapper.vm.handleDrop(itemId)
-
-    expect(wrapper.vm.droppedItems).toContain(itemId)
+    
+    // Select the object
+    wrapper.vm.handleObjectSelect(itemId)
+    expect(wrapper.vm.selectedItemId).toBe(itemId)
+    
+    // Place it in the target
+    wrapper.vm.handleTargetTap()
+    expect(wrapper.vm.placedItems).toContain(itemId)
+    expect(wrapper.vm.selectedItemId).toBeNull()
     expect(wrapper.vm.currentAnswer).toBe(1)
   })
 
@@ -56,13 +63,19 @@ describe('CountingQuest', () => {
 
     await wrapper.vm.$nextTick()
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
+    // Select and place first item
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.currentAnswer).toBe(1)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
+    // Select and place second item
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.currentAnswer).toBe(2)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[2])
+    // Select and place third item
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[2])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.currentAnswer).toBe(3)
   })
 
@@ -74,14 +87,16 @@ describe('CountingQuest', () => {
 
     expect(wrapper.vm.remainingItems).toHaveLength(5)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.remainingItems).toHaveLength(4)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.remainingItems).toHaveLength(3)
   })
 
-  it('checks complete state when all items dropped', async () => {
+  it('checks complete state when all items placed', async () => {
     const activity = createActivity('3', 3)
     const wrapper = mountComponent(activity)
 
@@ -89,13 +104,16 @@ describe('CountingQuest', () => {
 
     expect(wrapper.vm.isComplete).toBe(false)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.isComplete).toBe(false)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.isComplete).toBe(false)
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[2])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[2])
+    wrapper.vm.handleTargetTap()
     expect(wrapper.vm.isComplete).toBe(true)
   })
 
@@ -105,9 +123,12 @@ describe('CountingQuest', () => {
 
     await wrapper.vm.$nextTick()
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[2])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[2])
+    wrapper.vm.handleTargetTap()
 
     wrapper.vm.checkAnswer()
 
@@ -124,9 +145,12 @@ describe('CountingQuest', () => {
 
     await wrapper.vm.$nextTick()
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[2])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[2])
+    wrapper.vm.handleTargetTap()
 
     wrapper.vm.checkAnswer()
 
@@ -143,30 +167,54 @@ describe('CountingQuest', () => {
 
     await wrapper.vm.$nextTick()
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[1])
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[1])
+    wrapper.vm.handleTargetTap()
 
-    expect(wrapper.vm.droppedItems).toHaveLength(2)
+    expect(wrapper.vm.placedItems).toHaveLength(2)
     expect(wrapper.vm.currentAnswer).toBe(2)
 
     wrapper.vm.resetActivity()
 
-    expect(wrapper.vm.droppedItems).toHaveLength(0)
+    expect(wrapper.vm.placedItems).toHaveLength(0)
+    expect(wrapper.vm.selectedItemId).toBeNull()
     expect(wrapper.vm.currentAnswer).toBeNull()
   })
 
-  it('prevents dropping same item twice', async () => {
+  it('prevents placing already placed item', async () => {
     const activity = createActivity('3', 3)
     const wrapper = mountComponent(activity)
 
     await wrapper.vm.$nextTick()
 
     const itemId = wrapper.vm.availableItems[0]
-    wrapper.vm.handleDrop(itemId)
-    wrapper.vm.handleDrop(itemId)
+    
+    // Place item once
+    wrapper.vm.handleObjectSelect(itemId)
+    wrapper.vm.handleTargetTap()
+    expect(wrapper.vm.placedItems).toHaveLength(1)
+    
+    // Try to select already placed item (should be prevented)
+    wrapper.vm.handleObjectSelect(itemId)
+    expect(wrapper.vm.selectedItemId).toBeNull()
+  })
 
-    expect(wrapper.vm.droppedItems).toHaveLength(1)
-    expect(wrapper.vm.currentAnswer).toBe(1)
+  it('allows toggling selection', async () => {
+    const activity = createActivity('3', 3)
+    const wrapper = mountComponent(activity)
+
+    await wrapper.vm.$nextTick()
+
+    const itemId = wrapper.vm.availableItems[0]
+    
+    // Select item
+    wrapper.vm.handleObjectSelect(itemId)
+    expect(wrapper.vm.selectedItemId).toBe(itemId)
+    
+    // Toggle selection off
+    wrapper.vm.handleObjectSelect(itemId)
+    expect(wrapper.vm.selectedItemId).toBeNull()
   })
 
   it('reinitializes when activity changes', async () => {
@@ -175,13 +223,15 @@ describe('CountingQuest', () => {
 
     await wrapper.vm.$nextTick()
 
-    wrapper.vm.handleDrop(wrapper.vm.availableItems[0])
-    expect(wrapper.vm.droppedItems).toHaveLength(1)
+    wrapper.vm.handleObjectSelect(wrapper.vm.availableItems[0])
+    wrapper.vm.handleTargetTap()
+    expect(wrapper.vm.placedItems).toHaveLength(1)
 
     const activity2 = createActivity('5', 5)
     await wrapper.setProps({ activity: activity2 })
 
-    expect(wrapper.vm.droppedItems).toHaveLength(0)
+    expect(wrapper.vm.placedItems).toHaveLength(0)
+    expect(wrapper.vm.selectedItemId).toBeNull()
     expect(wrapper.vm.availableItems).toHaveLength(5)
     expect(wrapper.vm.currentAnswer).toBeNull()
   })

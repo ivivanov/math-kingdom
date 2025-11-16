@@ -2,7 +2,7 @@
   {
     "id": "counting-quest-1",
     "name": "Cookie Counting Adventure",
-    "description": "Help Count Cat count delicious cookies! Drag them into the basket and count as you go.",
+    "description": "Help Count Cat count delicious cookies! Tap them to select, then tap the basket to count as you go.",
     "questType": "practice",
     "vocabularyTerms": ["number", "quantity", "count"],
     "rewardsGems": 10,
@@ -11,16 +11,16 @@
       "activities": [
         {
           "type": "counting",
-          "instructions": "Drag the cookies into the basket. Count as you go!",
-          "instructions_bg": "Плъзни бисквитките в кошницата. Брой докато плъзгаш!",
+          "instructions": "Tap a cookie to select it, then tap the basket. Count as you go!",
+          "instructions_bg": "Докосни бисквитка, за да я избереш, след това докосни кошницата. Брой докато избираш!",
           "objects": ["cookie", "cookie", "cookie", "cookie", "cookie"],
           "correctAnswer": 5,
           "hint_bg": "Брой всяка бисквитка една по една."
         },
         {
           "type": "counting",
-          "instructions": "How many apples are there? Drag them to the basket!",
-          "instructions_bg": "Колко ябълки има? Плъзни ги в кошницата!",
+          "instructions": "How many apples are there? Tap to select, then tap the basket!",
+          "instructions_bg": "Колко ябълки има? Докосни, за да избереш, след това докосни кошницата!",
           "objects": ["apple", "apple", "apple", "apple", "apple", "apple", "apple"],
           "correctAnswer": 7,
           "hint_bg": "Започни от лявата страна и брой надясно."

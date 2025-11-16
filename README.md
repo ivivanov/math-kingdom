@@ -8,7 +8,7 @@ Visit the live application: [Math Kingdom](https://ivivanov.github.io/math-kingd
 
 ## 🎮 Features
 
-- Interactive math quests with drag-and-drop activities
+- Interactive math quests with mobile-first tap-to-select activities
 - Avatar customization and room decoration
 - Progress tracking with gems, stars, and badges
 - Multi-user support with individual progress
