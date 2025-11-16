@@ -4,4 +4,5 @@ export * from './quest'
 export * from './progress'
 export * from './items'
 export * from './vocabulary'
+export * from './notification'
 

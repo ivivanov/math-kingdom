@@ -1,10 +1,31 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
+import { useNotificationsStore } from "@/stores/notifications";
+import NotificationToast from "@/components/shared/NotificationToast.vue";
+
+const notificationsStore = useNotificationsStore();
+
+const handleDismiss = (id: string) => {
+  notificationsStore.dismissNotification(id);
+};
+
+const handleAction = async (handler: () => void | Promise<void>) => {
+  await handler();
+  // Dismiss the notification after action is handled
+  if (notificationsStore.activeNotification) {
+    notificationsStore.dismissNotification(notificationsStore.activeNotification.id);
+  }
+};
 </script>
 
 <template>
   <div id="app">
     <RouterView />
+    <NotificationToast
+      :notification="notificationsStore.activeNotification ?? null"
+      @dismiss="handleDismiss"
+      @action="handleAction"
+    />
   </div>
 </template>
 

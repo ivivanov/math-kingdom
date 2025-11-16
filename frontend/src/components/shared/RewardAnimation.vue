@@ -95,16 +95,27 @@ onUnmounted(() => {
   align-items: center;
   z-index: 1000;
   backdrop-filter: blur(5px);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .reward-card {
   background: white;
   border-radius: 25px;
-  padding: 50px;
+  padding: 30px 20px;
   max-width: 500px;
+  max-height: 80vh;
+  max-height: 80dvh;
+  overflow-y: auto;
   text-align: center;
   animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  margin: 0 16px;
+}
+
+@media (min-width: 768px) {
+  .reward-card {
+    padding: 50px;
+  }
 }
 
 @keyframes bounceIn {
@@ -209,7 +220,7 @@ onUnmounted(() => {
   cursor: pointer;
   transition: all 0.3s;
   margin-top: 20px;
-  min-height: 52px;
+  min-height: 48px;
   touch-action: manipulation;
 }
 

@@ -11,6 +11,9 @@ app.use(pinia);
 app.use(router);
 app.mount("#app");
 
+// Import notifications store after app is mounted
+import { useNotificationsStore } from "./stores/notifications";
+
 // Register Service Worker for PWA functionality
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -37,10 +40,25 @@ if ("serviceWorker" in navigator) {
                 navigator.serviceWorker.controller
               ) {
                 // New service worker available, prompt user to reload
-                if (confirm("New version available! Reload to update?")) {
-                  newWorker.postMessage({ type: "SKIP_WAITING" });
-                  window.location.reload();
-                }
+                const notificationsStore = useNotificationsStore();
+                notificationsStore.showConfirm(
+                  "New version available! Update now for the latest features.",
+                  [
+                    {
+                      label: "Update Now",
+                      type: "primary",
+                      handler: () => {
+                        newWorker.postMessage({ type: "SKIP_WAITING" });
+                        window.location.reload();
+                      },
+                    },
+                    {
+                      label: "Later",
+                      type: "secondary",
+                      handler: () => {}, // Just dismiss
+                    },
+                  ]
+                );
               }
             });
           }

@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStatsStore } from '@/stores/userStats'
 import { useRewardsStore } from '@/stores/rewards'
+import { useNotificationsStore } from '@/stores/notifications'
 import UserSwitcher from '@/components/auth/UserSwitcher.vue'
 import itemsData from '@/data/items.json'
 import type { Item } from '@/types'
@@ -10,6 +11,7 @@ import type { Item } from '@/types'
 const router = useRouter()
 const userStatsStore = useUserStatsStore()
 const rewardsStore = useRewardsStore()
+const notificationsStore = useNotificationsStore()
 
 const items = ref<Item[]>([])
 const selectedCategory = ref<string>('all')
@@ -40,9 +42,9 @@ const filteredItems = computed(() => {
 const purchaseItem = (item: Item) => {
   const success = rewardsStore.purchaseItem(item)
   if (success) {
-    alert(`✨ You purchased ${item.name}!`)
+    notificationsStore.showSuccess(`✨ You purchased ${item.name}!`, 3000)
   } else {
-    alert(`❌ Not enough gems to purchase ${item.name}`)
+    notificationsStore.showError(`Not enough gems to purchase ${item.name}`, 3000)
   }
 }
 
