@@ -222,96 +222,95 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Mobile-only quest view */
 .quest-view {
   min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   background: white;
-  padding: 20px 40px;
+  padding: 12px 16px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .back-btn {
-  padding: 10px 20px;
+  padding: 10px 16px;
   background: #f5f5f5;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: #333;
-  transition: all 0.3s;
+  transition: transform 0.2s, background 0.2s;
+  min-height: 44px;
+  touch-action: manipulation;
+  align-self: flex-start;
 }
 
-.back-btn:hover {
+.back-btn:active {
+  transform: scale(0.95);
   background: #667eea;
   color: white;
 }
 
 .quest-title {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: #667eea;
+  text-align: center;
+  margin: 0;
+  padding: 0 8px;
 }
 
 .main-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  padding-bottom: max(16px, env(safe-area-inset-bottom));
 }
 
 .progress-section {
   background: white;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 30px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .activity-container {
-  margin: 30px 0;
+  margin: 20px 0;
 }
 
 .activity-card {
   background: white;
   border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
 }
 
 .activity-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .activity-number {
   display: inline-block;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 10px 25px;
-  border-radius: 25px;
+  padding: 12px 20px;
+  border-radius: 20px;
   font-weight: 600;
-  font-size: 1rem;
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 15px;
-    padding: 15px 20px;
-  }
-
-  .quest-title {
-    font-size: 1.2rem;
-  }
-
-  .activity-card {
-    padding: 25px;
-  }
+  font-size: 0.9rem;
 }
 </style>
 

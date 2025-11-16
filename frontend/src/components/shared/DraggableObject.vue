@@ -70,31 +70,34 @@ const getEmoji = () => {
 </template>
 
 <style scoped>
+/* Mobile-optimized draggable */
 .draggable-object {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background: white;
   border: 3px solid #e0e0e0;
-  border-radius: 15px;
+  border-radius: 20px;
   cursor: grab;
-  transition: all 0.3s;
+  transition: transform 0.2s, box-shadow 0.2s;
   user-select: none;
   touch-action: none;
+  min-width: 80px;
+  min-height: 80px;
 }
 
-.draggable-object:hover {
-  transform: scale(1.1);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+.draggable-object:active {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
   border-color: #667eea;
 }
 
 .draggable-object.dragging {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: grabbing;
-  transform: scale(0.9);
+  transform: scale(0.95);
 }
 
 .object-content {
@@ -102,19 +105,8 @@ const getEmoji = () => {
 }
 
 .object-emoji {
-  font-size: 3rem;
+  font-size: 3.5rem;
   display: block;
-}
-
-@media (max-width: 768px) {
-  .draggable-object {
-    width: 70px;
-    height: 70px;
-  }
-
-  .object-emoji {
-    font-size: 2.5rem;
-  }
 }
 </style>
 

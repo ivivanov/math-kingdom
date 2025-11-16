@@ -78,9 +78,10 @@ const countDisplay = computed(() => {
 </template>
 
 <style scoped>
+/* Mobile-optimized drop zone */
 .drop-zone {
-  min-width: 200px;
-  min-height: 200px;
+  min-width: 120px;
+  min-height: 120px;
   background: #f5f5f5;
   border: 3px dashed #ccc;
   border-radius: 20px;

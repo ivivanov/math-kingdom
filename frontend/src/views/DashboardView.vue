@@ -146,113 +146,132 @@ const greeting = computed(() => {
 </template>
 
 <style scoped>
+/* Mobile-only dashboard */
 .dashboard {
   min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   background: white;
-  padding: 20px 40px;
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
 }
 
 .app-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #667eea;
+  margin: 0;
 }
 
 .main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 24px 16px;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
 }
 
 .welcome-section {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .greeting {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   color: white;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .stats-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
 .stat-card {
   background: white;
-  border-radius: 15px;
-  padding: 25px;
+  border-radius: 16px;
+  padding: 20px 16px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 120px;
+  transition: transform 0.2s;
+  touch-action: manipulation;
 }
 
-.stat-card:hover {
-  transform: translateY(-5px);
+.stat-card:active {
+  transform: scale(0.97);
 }
 
 .stat-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .stat-info {
-  flex: 1;
+  text-align: center;
 }
 
 .stat-value {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
   color: #333;
+  line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: #999;
   text-transform: uppercase;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
 }
 
 .level-progress-section {
   background: white;
-  border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 40px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .progress-header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 600;
+  font-size: 0.9rem;
   color: #333;
+  gap: 8px;
 }
 
 .progress-text {
   color: #667eea;
+  text-align: right;
+  flex-shrink: 0;
 }
 
 .progress-bar {
-  height: 30px;
+  height: 32px;
   background: #e0e0e0;
-  border-radius: 15px;
+  border-radius: 16px;
   overflow: hidden;
 }
 
@@ -263,35 +282,37 @@ const greeting = computed(() => {
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  font-weight: 600;
 }
 
 .realms-section {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .realm-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .realm-card {
   background: white;
-  border-radius: 15px;
-  padding: 30px;
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
-  gap: 20px;
+  gap: 16px;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 100px;
+  touch-action: manipulation;
 }
 
-.realm-card:not(.locked):hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+.realm-card:active {
+  transform: scale(0.98);
 }
 
 .realm-card.locked {
@@ -299,30 +320,38 @@ const greeting = computed(() => {
   cursor: not-allowed;
 }
 
+.realm-card.locked:active {
+  transform: none;
+}
+
 .realm-icon {
   font-size: 3rem;
+  flex-shrink: 0;
 }
 
 .realm-info {
   flex: 1;
+  min-width: 0;
 }
 
 .realm-info h4 {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .realm-info p {
   color: #666;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .realm-badge {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -337,51 +366,39 @@ const greeting = computed(() => {
 }
 
 .quick-actions {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .action-buttons {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .action-btn {
   background: white;
   border: none;
-  border-radius: 15px;
-  padding: 25px;
+  border-radius: 16px;
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  font-size: 1.1rem;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
   font-weight: 600;
   color: #333;
+  min-height: 72px;
+  touch-action: manipulation;
 }
 
-.action-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+.action-btn:active {
+  transform: scale(0.98);
 }
 
 .btn-icon {
   font-size: 2rem;
-}
-
-@media (max-width: 768px) {
-  .header {
-    padding: 15px 20px;
-  }
-
-  .greeting {
-    font-size: 1.8rem;
-  }
-
-  .stats-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  flex-shrink: 0;
 }
 </style>

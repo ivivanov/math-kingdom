@@ -1,0 +1,4 @@
+# PWA Icon Placeholder
+# Generate actual icons using a tool like https://realfavicongenerator.net/
+# or create custom icons with your Math Kingdom branding
+# For now, using a simple SVG converted to PNG

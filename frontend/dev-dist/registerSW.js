@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/math-kingdom/dev-sw.js?dev-sw', { scope: '/math-kingdom/', type: 'classic' })

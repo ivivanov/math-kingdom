@@ -138,44 +138,48 @@ const toggleMode = () => {
 </template>
 
 <style scoped>
+/* Mobile-only login */
 .login-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 20px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
 }
 
 .login-card {
   background: white;
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 500px;
+  border-radius: 24px;
+  padding: 32px 24px;
   width: 100%;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: #667eea;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .subtitle {
   text-align: center;
   color: #666;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
+  font-size: 0.95rem;
 }
 
 .form-container {
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 
 .form-container h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .form-group {
@@ -187,15 +191,18 @@ const toggleMode = () => {
   margin-bottom: 8px;
   color: #555;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .input {
   width: 100%;
-  padding: 12px;
+  padding: 16px;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+  touch-action: manipulation;
+  min-height: 52px;
 }
 
 .input:focus {
@@ -205,94 +212,105 @@ const toggleMode = () => {
 
 .error-message {
   color: #e74c3c;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   font-size: 0.9rem;
+  text-align: center;
+  padding: 12px;
+  background: #fee;
+  border-radius: 8px;
 }
 
 .btn-primary {
   width: 100%;
-  padding: 14px;
+  padding: 16px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-bottom: 10px;
+  transition: transform 0.2s, opacity 0.2s;
+  margin-bottom: 12px;
+  min-height: 56px;
+  touch-action: manipulation;
 }
 
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+.btn-primary:active {
+  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 .btn-secondary {
   width: 100%;
-  padding: 12px;
+  padding: 16px;
   background: transparent;
   color: #667eea;
   border: 2px solid #667eea;
-  border-radius: 8px;
-  font-size: 0.95rem;
+  border-radius: 12px;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+  min-height: 56px;
+  touch-action: manipulation;
 }
 
-.btn-secondary:hover {
-  background: #667eea;
-  color: white;
+.btn-secondary:active {
+  transform: scale(0.98);
+  background: rgba(102, 126, 234, 0.1);
 }
 
 .existing-users {
-  margin-top: 30px;
-  padding-top: 30px;
+  margin-top: 28px;
+  padding-top: 28px;
   border-top: 2px solid #e0e0e0;
 }
 
 .existing-users h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
   text-align: center;
 }
 
 .user-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .user-button {
-  padding: 12px;
+  padding: 16px;
   background: #f5f5f5;
   border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s;
-  font-size: 0.95rem;
+  transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+  font-size: 1rem;
   font-weight: 600;
   color: #333;
+  min-height: 56px;
+  touch-action: manipulation;
 }
 
-.user-button:hover {
+.user-button:active {
+  transform: scale(0.98);
   background: #667eea;
   color: white;
   border-color: #667eea;
-  transform: translateX(5px);
 }
 
 .warning {
   margin-top: 20px;
-  padding: 15px;
+  padding: 16px;
   background: #fff3cd;
   border: 1px solid #ffc107;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #856404;
   font-size: 0.85rem;
   text-align: center;
+  line-height: 1.5;
 }
 </style>
 
