@@ -99,7 +99,7 @@ const resetActivity = () => {
         <h4>Tap these objects:</h4>
         <div class="objects-grid">
           <TappableObject
-            v-for="(itemId, index) in remainingItems"
+            v-for="itemId in remainingItems"
             :key="itemId"
             :id="itemId"
             :type="objectType(availableItems.indexOf(itemId))"
