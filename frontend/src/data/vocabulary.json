@@ -1,0 +1,57 @@
+[
+  {
+    "term": "number",
+    "definition": "A symbol or word that represents a quantity or amount",
+    "definition_bg": "Символ или дума, която представя количество или сума",
+    "example": "5 is a number that represents five things"
+  },
+  {
+    "term": "quantity",
+    "definition": "An amount or number of something",
+    "definition_bg": "Количество или брой на нещо",
+    "example": "The quantity of apples is 7"
+  },
+  {
+    "term": "count",
+    "definition": "To say numbers in order to find out how many things there are",
+    "definition_bg": "Да кажеш числата по ред, за да разбереш колко неща има",
+    "example": "Count the cookies: 1, 2, 3, 4, 5"
+  },
+  {
+    "term": "zero",
+    "definition": "The number 0, meaning nothing or none",
+    "definition_bg": "Числото 0, означаващо нищо или никакво",
+    "example": "An empty basket has zero apples"
+  },
+  {
+    "term": "none",
+    "definition": "Not any; zero amount",
+    "definition_bg": "Никакъв; нула количество",
+    "example": "If you eat all the cookies, there are none left"
+  },
+  {
+    "term": "empty",
+    "definition": "Having nothing inside",
+    "definition_bg": "Нямащ нищо вътре",
+    "example": "The empty jar has zero candies"
+  },
+  {
+    "term": "more than",
+    "definition": "A greater amount or number",
+    "definition_bg": "По-голямо количество или число",
+    "example": "7 is more than 5"
+  },
+  {
+    "term": "less than",
+    "definition": "A smaller amount or number",
+    "definition_bg": "По-малко количество или число",
+    "example": "3 is less than 8"
+  },
+  {
+    "term": "equal",
+    "definition": "The same amount or value",
+    "definition_bg": "Същото количество или стойност",
+    "example": "5 is equal to 5"
+  }
+]
+

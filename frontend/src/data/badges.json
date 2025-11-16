@@ -1,0 +1,63 @@
+[
+  {
+    "id": "first-steps",
+    "name": "First Steps",
+    "description": "Complete your first quest in Math Kingdom!",
+    "imageUrl": "/assets/badges/first-steps.svg",
+    "unlockCriteria": {
+      "type": "quests_completed",
+      "value": 1
+    }
+  },
+  {
+    "id": "counting-champion",
+    "name": "Counting Champion",
+    "description": "Master the Cookie Counting Adventure!",
+    "imageUrl": "/assets/badges/counting-champion.svg",
+    "unlockCriteria": {
+      "type": "quest_complete",
+      "value": "counting-quest-1"
+    }
+  },
+  {
+    "id": "zero-hero",
+    "name": "Zero Hero",
+    "description": "Understand the power of zero!",
+    "imageUrl": "/assets/badges/zero-hero.svg",
+    "unlockCriteria": {
+      "type": "quest_complete",
+      "value": "zero-quest-1"
+    }
+  },
+  {
+    "id": "number-village-explorer",
+    "name": "Number Village Explorer",
+    "description": "Complete all quests in Number Village!",
+    "imageUrl": "/assets/badges/village-explorer.svg",
+    "unlockCriteria": {
+      "type": "quests_completed",
+      "value": 2
+    }
+  },
+  {
+    "id": "gem-collector",
+    "name": "Gem Collector",
+    "description": "Earn 50 gems through your adventures!",
+    "imageUrl": "/assets/badges/gem-collector.svg",
+    "unlockCriteria": {
+      "type": "gems_earned",
+      "value": 50
+    }
+  },
+  {
+    "id": "star-student",
+    "name": "Star Student",
+    "description": "Earn 5 stars and show your brilliance!",
+    "imageUrl": "/assets/badges/star-student.svg",
+    "unlockCriteria": {
+      "type": "stars_earned",
+      "value": 5
+    }
+  }
+]
+

@@ -1,0 +1,138 @@
+[
+  {
+    "id": "red-shirt",
+    "type": "clothing",
+    "category": "shirt",
+    "name": "Red T-Shirt",
+    "description": "A bright red shirt for your avatar",
+    "costGems": 20,
+    "imageUrl": "/assets/items/red-shirt.svg"
+  },
+  {
+    "id": "blue-shirt",
+    "type": "clothing",
+    "category": "shirt",
+    "name": "Blue T-Shirt",
+    "description": "A cool blue shirt",
+    "costGems": 20,
+    "imageUrl": "/assets/items/blue-shirt.svg"
+  },
+  {
+    "id": "green-pants",
+    "type": "clothing",
+    "category": "pants",
+    "name": "Green Pants",
+    "description": "Comfortable green pants",
+    "costGems": 25,
+    "imageUrl": "/assets/items/green-pants.svg"
+  },
+  {
+    "id": "sneakers",
+    "type": "clothing",
+    "category": "shoes",
+    "name": "Cool Sneakers",
+    "description": "Fast running shoes",
+    "costGems": 30,
+    "imageUrl": "/assets/items/sneakers.svg"
+  },
+  {
+    "id": "baseball-cap",
+    "type": "clothing",
+    "category": "hat",
+    "name": "Baseball Cap",
+    "description": "A sporty cap",
+    "costGems": 15,
+    "imageUrl": "/assets/items/baseball-cap.svg"
+  },
+  {
+    "id": "cat-pet",
+    "type": "pet",
+    "category": "cat",
+    "name": "Friendly Cat",
+    "description": "A cute cat companion",
+    "costGems": 50,
+    "imageUrl": "/assets/items/cat-pet.svg"
+  },
+  {
+    "id": "dog-pet",
+    "type": "pet",
+    "category": "dog",
+    "name": "Playful Dog",
+    "description": "A loyal dog friend",
+    "costGems": 50,
+    "imageUrl": "/assets/items/dog-pet.svg"
+  },
+  {
+    "id": "bunny-pet",
+    "type": "pet",
+    "category": "bunny",
+    "name": "Hopping Bunny",
+    "description": "An adorable bunny",
+    "costGems": 45,
+    "imageUrl": "/assets/items/bunny-pet.svg"
+  },
+  {
+    "id": "backpack",
+    "type": "accessory",
+    "category": "bag",
+    "name": "School Backpack",
+    "description": "Carry your math tools",
+    "costGems": 35,
+    "imageUrl": "/assets/items/backpack.svg"
+  },
+  {
+    "id": "glasses",
+    "type": "accessory",
+    "category": "eyewear",
+    "name": "Smart Glasses",
+    "description": "Look smart!",
+    "costGems": 25,
+    "imageUrl": "/assets/items/glasses.svg"
+  },
+  {
+    "id": "desk",
+    "type": "furniture",
+    "category": "desk",
+    "name": "Study Desk",
+    "description": "A desk for learning",
+    "costGems": 40,
+    "imageUrl": "/assets/items/desk.svg"
+  },
+  {
+    "id": "bookshelf",
+    "type": "furniture",
+    "category": "shelf",
+    "name": "Bookshelf",
+    "description": "Store your math books",
+    "costGems": 45,
+    "imageUrl": "/assets/items/bookshelf.svg"
+  },
+  {
+    "id": "bean-bag",
+    "type": "furniture",
+    "category": "seating",
+    "name": "Cozy Bean Bag",
+    "description": "Comfy seat for reading",
+    "costGems": 35,
+    "imageUrl": "/assets/items/bean-bag.svg"
+  },
+  {
+    "id": "plant",
+    "type": "furniture",
+    "category": "decoration",
+    "name": "Potted Plant",
+    "description": "Brings life to your room",
+    "costGems": 20,
+    "imageUrl": "/assets/items/plant.svg"
+  },
+  {
+    "id": "poster",
+    "type": "furniture",
+    "category": "wall-art",
+    "name": "Math Poster",
+    "description": "Inspiring math art",
+    "costGems": 15,
+    "imageUrl": "/assets/items/poster.svg"
+  }
+]
+

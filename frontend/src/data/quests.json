@@ -1,0 +1,141 @@
+[
+  {
+    "id": "counting-quest-1",
+    "name": "Cookie Counting Adventure",
+    "description": "Help Count Cat count delicious cookies! Drag them into the basket and count as you go.",
+    "questType": "practice",
+    "vocabularyTerms": ["number", "quantity", "count"],
+    "rewardsGems": 10,
+    "rewardsStars": 1,
+    "content": {
+      "activities": [
+        {
+          "type": "counting",
+          "instructions": "Drag the cookies into the basket. Count as you go!",
+          "instructions_bg": "Плъзни бисквитките в кошницата. Брой докато плъзгаш!",
+          "objects": ["cookie", "cookie", "cookie", "cookie", "cookie"],
+          "correctAnswer": 5,
+          "hint_bg": "Брой всяка бисквитка една по една."
+        },
+        {
+          "type": "counting",
+          "instructions": "How many apples are there? Drag them to the basket!",
+          "instructions_bg": "Колко ябълки има? Плъзни ги в кошницата!",
+          "objects": ["apple", "apple", "apple", "apple", "apple", "apple", "apple"],
+          "correctAnswer": 7,
+          "hint_bg": "Започни от лявата страна и брой надясно."
+        },
+        {
+          "type": "counting",
+          "instructions": "Count the stars in the sky!",
+          "instructions_bg": "Преброй звездите на небето!",
+          "objects": ["star", "star", "star"],
+          "correctAnswer": 3,
+          "hint_bg": "Колко са? Една, две, три..."
+        },
+        {
+          "type": "counting",
+          "instructions": "Let's count some colorful gems!",
+          "instructions_bg": "Нека пребройме някои цветни скъпоценни камъни!",
+          "objects": ["gem", "gem", "gem", "gem", "gem", "gem", "gem", "gem"],
+          "correctAnswer": 8,
+          "hint_bg": "Внимателно брой всеки скъпоценен камък."
+        },
+        {
+          "type": "counting",
+          "instructions": "Final challenge! Count all the balloons!",
+          "instructions_bg": "Финално предизвикателство! Преброй всички балони!",
+          "objects": ["balloon", "balloon", "balloon", "balloon", "balloon", "balloon", "balloon", "balloon", "balloon", "balloon"],
+          "correctAnswer": 10,
+          "hint_bg": "Това са много! Брой внимателно."
+        }
+      ]
+    }
+  },
+  {
+    "id": "zero-quest-1",
+    "name": "Zero Hero Quest",
+    "description": "Discover the special number zero! Learn when we have nothing at all.",
+    "questType": "discovery",
+    "vocabularyTerms": ["zero", "none", "empty"],
+    "rewardsGems": 15,
+    "rewardsStars": 2,
+    "content": {
+      "activities": [
+        {
+          "type": "multiple-choice",
+          "instructions": "Which basket is empty?",
+          "instructions_bg": "Коя кошница е празна?",
+          "options": [
+            {
+              "id": "basket-a",
+              "text": "Basket with 3 apples",
+              "isCorrect": false
+            },
+            {
+              "id": "basket-b",
+              "text": "Empty basket",
+              "isCorrect": true
+            },
+            {
+              "id": "basket-c",
+              "text": "Basket with 1 apple",
+              "isCorrect": false
+            }
+          ],
+          "correctAnswer": "basket-b",
+          "hint_bg": "Празна означава нула - няма нищо вътре."
+        },
+        {
+          "type": "multiple-choice",
+          "instructions": "How many cookies are in the empty jar?",
+          "instructions_bg": "Колко бисквитки има в празното буркан?",
+          "options": [
+            {
+              "id": "zero",
+              "text": "0 (zero)",
+              "isCorrect": true
+            },
+            {
+              "id": "one",
+              "text": "1 (one)",
+              "isCorrect": false
+            },
+            {
+              "id": "many",
+              "text": "Many",
+              "isCorrect": false
+            }
+          ],
+          "correctAnswer": "zero",
+          "hint_bg": "Ако буркана е празно, колко бисквитки има?"
+        },
+        {
+          "type": "multiple-choice",
+          "instructions": "You eat all 5 candies. How many are left?",
+          "instructions_bg": "Изядеш всички 5 бонбона. Колко остават?",
+          "options": [
+            {
+              "id": "five",
+              "text": "5",
+              "isCorrect": false
+            },
+            {
+              "id": "zero",
+              "text": "0",
+              "isCorrect": true
+            },
+            {
+              "id": "ten",
+              "text": "10",
+              "isCorrect": false
+            }
+          ],
+          "correctAnswer": "zero",
+          "hint_bg": "Ако изядеш ВСИЧКИ, нищо няма да остане."
+        }
+      ]
+    }
+  }
+]
+

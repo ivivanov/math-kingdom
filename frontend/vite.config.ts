@@ -1,0 +1,21 @@
+import { defineConfig } from 'vitest/config'
+import vue from '@vitejs/plugin-vue'
+import { fileURLToPath, URL } from 'node:url'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [vue()],
+  base: '/math-kingdom/',
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
+  build: {
+    outDir: 'dist',
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  }
+})
